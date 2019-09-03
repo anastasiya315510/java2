@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import telran.java29.person.dao.PersonRepository;
 import telran.java29.person.dto.PersonDto;
+import telran.java29.person.dto.PersonEditDto;
 import telran.java29.person.model.Person;
 
 @Service
@@ -46,6 +47,27 @@ public class PersonServiceImpl implements PersonService {
 				.name(personDto.getName())
 				.birthDate(LocalDate.parse(personDto.getBirthDate()))
 				.build();
+	}
+
+	@Override
+	public PersonDto deletePerson(int id) {
+		Person person = personRepository.findById(id).get();
+		
+	 personRepository.delete(person);
+	 return convertToPersonDto(person);
+	 
+		
+	}
+
+	@Override
+	public PersonDto editPerson(PersonEditDto personEditDto, int id) {
+	Person person = personRepository.findById(id).get();
+	if(personEditDto.getName() != null) {
+		person.setName(personEditDto.getName());
+	}
+	personRepository.save(person);
+	
+		return convertToPersonDto(person);
 	}
 
 }
