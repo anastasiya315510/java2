@@ -3,6 +3,7 @@ package telran.java29.person.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -29,4 +30,6 @@ public class Person implements Serializable{
 	int id;
 	String name;
 	LocalDate birthDate;
+	@Embedded
+	Address address;
 }
